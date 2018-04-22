@@ -1,0 +1,74 @@
+<html>
+<head>
+<script type="text/javascript" src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <link rel="stylesheet" src="https://unpkg.com/todomvc-app-css@2.0.6/index.css">
+<link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <style>
+ [v-cloak] { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">       
+            <section class="todoapp">
+                <div class="form-group">
+                    <h1 align="center">To do list..</h1>
+                    <input class="form-control form-control-lg new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" v-model="newTodo" @keyup.enter="addTodo">
+                </div>             
+                <div class="input-group-text main">                                
+                    <div class="list-group">
+                        <ul class="list-unstyled todo-list">
+                            <li v-for="todo in filteredTodos" class="todo" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
+                                <div class="view">                                   
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input class="toggle" type="checkbox" v-model="todo.completed">
+                                            </div>
+                                        </div> 
+                                        <input class="edit" type="text" class="form-control" aria-label="Items with options" v-model="todo.title" v-todo-focus="todo == editedTodo" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)"
+                                            @keyup.esc="cancelEdit(todo)">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary destroy" @click="removeTodo(todo)" type="button">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                  
+                <input class="toggle-all" type="checkbox" v-model="allDone" checked autocomplete="off"> Select All
+                <div class="form-group footer" v-show="todos.length" v-cloak>
+                    <span class="todo-count">
+                        <strong>{{ remaining }}</strong> {{ remaining | pluralize }} left
+                    </span>
+                    <ul class="list-unstyled filters">
+                        <li>
+                            <a href="#/all" :class="{ selected: visibility == 'all' }">View All</a>
+                        </li>
+                        <li>
+                            <a href="#/active" :class="{ selected: visibility == 'active' }">View Active</a>
+                        </li>
+                        <li>
+                            <a href="#/completed" :class="{ selected: visibility == 'completed' }">View Completed</a>
+                        </li>
+                    </ul>
+                    <button class="btn btn-danger btn-lg btn-block clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
+                        Clear completed
+                    </button>
+                </div>
+            </section>      
+    </div>
+    <script type="text/javascript" src="vue_1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+</body>
+</html>
